@@ -1,0 +1,18 @@
+[workspace]
+members = ["api", "business", "persistence", "infrastructure"]
+
+[workspace.dependencies]
+async-trait = "0.1.68"
+anyhow = "1.0.70"
+chrono = { version = "0.4.22", features = ["serde"] }
+dotenvy = "0.15.7"
+envy = "0.4.2"
+serde = { version = "1.0.160", features = ["derive"] }
+sqlx = { version = "0.6.3", features = ["runtime-tokio-rustls", "uuid", "bigdecimal", "postgres", "chrono", "migrate", "offline"] }
+thirtyfour = "0.31.0"
+thiserror = "1.0.40"
+tokio = { version = "1.27.0", features = ["full"] }
+tracing = "0.1.37"
+tracing-appender = "0.2.2"
+tracing-subscriber = { version = "0.3.16", features = ["json"] }
+uuid = { version = "1.1.2", features = ["serde", "v4"] }
