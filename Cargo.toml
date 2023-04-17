@@ -4,6 +4,7 @@ members = ["api", "business", "persistence", "infrastructure"]
 [workspace.dependencies]
 axum = { version = "0.6.15" , features = ["multipart"] }
 axum-macros = "0.3.7"
+bigdecimal = { version = "0.3.0", features = ["serde"] }
 tower = "0.4.13"
 tower-http = { version = "0.4.0", features = ["trace"] }
 hyper = { version = "0.14.20", features = ["full"] }

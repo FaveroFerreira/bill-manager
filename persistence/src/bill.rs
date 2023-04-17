@@ -1,4 +1,5 @@
 use async_trait::async_trait;
+use bigdecimal::BigDecimal;
 use sqlx::types::chrono::NaiveDate;
 use sqlx::types::Uuid;
 use sqlx::PgPool;
@@ -11,8 +12,8 @@ use business::error::BillError;
 pub struct PersistenceBill {
     pub id: Uuid,
     pub description: String,
-    pub original_amount: f64,
-    pub corrected_amount: Option<f64>,
+    pub original_amount: BigDecimal,
+    pub corrected_amount: Option<BigDecimal>,
     pub due_date: NaiveDate,
     pub payment_date: NaiveDate,
 }
@@ -65,8 +66,8 @@ impl BillRepository for BillPostgresRepository {
         sqlx::query_as::<_, PersistenceBill>(QUERY)
             .bind(bill.id)
             .bind(&bill.description)
-            .bind(bill.original_amount)
-            .bind(bill.corrected_amount)
+            .bind(&bill.original_amount)
+            .bind(&bill.corrected_amount)
             .bind(bill.due_date)
             .bind(bill.payment_date)
             .fetch_one(&self.pool)

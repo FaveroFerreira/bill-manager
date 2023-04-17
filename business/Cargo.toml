@@ -10,3 +10,4 @@ async-trait = { workspace = true }
 uuid = { workspace = true }
 chrono = { workspace = true }
 thiserror = { workspace = true }
+bigdecimal = { workspace = true }

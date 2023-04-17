@@ -1,3 +1,4 @@
+use bigdecimal::BigDecimal;
 use chrono::NaiveDate;
 use uuid::Uuid;
 
@@ -5,8 +6,8 @@ use uuid::Uuid;
 pub struct Bill {
     pub id: Uuid,
     pub description: String,
-    pub original_amount: f64,
-    pub corrected_amount: Option<f64>,
+    pub original_amount: BigDecimal,
+    pub corrected_amount: Option<BigDecimal>,
     pub due_date: NaiveDate,
     pub payment_date: NaiveDate,
 }

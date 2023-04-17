@@ -1,5 +1,7 @@
 use std::sync::Arc;
 
+use bigdecimal::BigDecimal;
+
 use crate::bill::model::Bill;
 use crate::bill::repository::BillRepository;
 use crate::error::{BillError, InterestError};
@@ -34,7 +36,7 @@ impl BillService {
         self.bill_repository.save_bill(&bill).await
     }
 
-    async fn calculate_corrected_amount(&self, bill: &Bill) -> Result<f64, BillError> {
+    async fn calculate_corrected_amount(&self, bill: &Bill) -> Result<BigDecimal, BillError> {
         let delayed_days = bill.calculate_delayed_days();
 
         let interest_config = self
@@ -45,9 +47,10 @@ impl BillService {
                 "for {delayed_days} delayed days"
             )))?;
 
-        let original_amount = bill.original_amount;
+        let original_amount = &bill.original_amount;
 
-        let interest = (original_amount * interest_config.interest) * (delayed_days as f64);
+        let interest =
+            (original_amount * interest_config.interest) * BigDecimal::from(delayed_days);
         let fine = original_amount * interest_config.fine;
 
         Ok(original_amount + interest + fine)

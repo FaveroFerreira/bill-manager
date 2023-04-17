@@ -19,3 +19,4 @@ uuid = { workspace = true }
 axum-macros = { workspace = true }
 serde = { workspace = true }
 tracing = { workspace = true }
+bigdecimal = { workspace = true }

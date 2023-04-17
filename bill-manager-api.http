@@ -1,9 +1,15 @@
+### Create bill
 POST http://localhost:8080/bill
 Content-Type: application/json
 
 {
   "description": "Rust for Rustaceans book",
   "original_amount": 34.40,
-  "due_date": "2023-04-17",
+  "due_date": "2023-04-15",
   "payment_date": "2023-04-17"
 }
+
+### List bills
+
+GET http://localhost:8080/bill
+
