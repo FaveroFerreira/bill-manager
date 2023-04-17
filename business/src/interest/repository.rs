@@ -8,5 +8,5 @@ pub trait InterestRepository {
     async fn find_interest_range_by_delayed_days(
         &self,
         delayed_days: i64,
-    ) -> Result<Option<InterestConfiguration>, InterestError>;
+    ) -> Result<InterestConfiguration, InterestError>;
 }

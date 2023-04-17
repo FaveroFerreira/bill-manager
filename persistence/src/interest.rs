@@ -55,15 +55,15 @@ impl InterestRepository for InterestPostgresRepository {
     async fn find_interest_range_by_delayed_days(
         &self,
         delayed_days: i64,
-    ) -> Result<Option<InterestConfiguration>, InterestError> {
+    ) -> Result<InterestConfiguration, InterestError> {
         const QUERY: &str =
             "SELECT * FROM interest_configuration WHERE $1 >= start_range AND $1 <= end_range";
 
         sqlx::query_as::<_, PersistenceInterestConfiguration>(QUERY)
             .bind(delayed_days)
-            .fetch_optional(&self.pool)
+            .fetch_one(&self.pool)
             .await
-            .map(|it| it.map(InterestConfiguration::from))
+            .map(InterestConfiguration::from)
             .map_err(|e| InterestError::Persistence(format!("{e:?}")))
     }
 }

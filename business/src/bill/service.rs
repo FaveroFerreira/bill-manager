@@ -4,7 +4,7 @@ use bigdecimal::BigDecimal;
 
 use crate::bill::model::Bill;
 use crate::bill::repository::BillRepository;
-use crate::error::{BillError, InterestError};
+use crate::error::BillError;
 use crate::interest::service::InterestService;
 
 pub struct BillService {
@@ -42,10 +42,7 @@ impl BillService {
         let interest_config = self
             .interest_service
             .find_interest_configuration_range_by_delayed_days(delayed_days)
-            .await?
-            .ok_or(InterestError::NotFound(format!(
-                "for {delayed_days} delayed days"
-            )))?;
+            .await?;
 
         let original_amount = &bill.original_amount;
 

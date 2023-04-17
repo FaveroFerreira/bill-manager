@@ -18,7 +18,7 @@ impl InterestService {
     pub async fn find_interest_configuration_range_by_delayed_days(
         &self,
         delayed_days: i64,
-    ) -> Result<Option<InterestConfiguration>, InterestError> {
+    ) -> Result<InterestConfiguration, InterestError> {
         self.interest_repository
             .find_interest_range_by_delayed_days(delayed_days)
             .await
