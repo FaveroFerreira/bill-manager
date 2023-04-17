@@ -58,7 +58,8 @@ impl BillRepository for BillPostgresRepository {
     async fn save_bill(&self, bill: &Bill) -> Result<Bill, BillError> {
         const QUERY: &str = r#"
             INSERT INTO bill (id, description, original_amount, corrected_amount, due_date, payment_date) 
-            VALUES ($1, $2, $3, $4, $5, $6)
+            VALUES ($1, $2, $3, $4, $5, $6) 
+            RETURNING id, description, original_amount, corrected_amount, due_date, payment_date
         "#;
 
         sqlx::query_as::<_, PersistenceBill>(QUERY)
