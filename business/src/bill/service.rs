@@ -58,6 +58,7 @@ impl BillService {
 mod tests {
     use std::ops::Not;
 
+    use bigdecimal::BigDecimal;
     use chrono::NaiveDate;
 
     use crate::bill::model::Bill;
@@ -67,7 +68,7 @@ mod tests {
         let bill = Bill {
             id: Default::default(),
             description: "".to_string(),
-            original_amount: 0.0,
+            original_amount: BigDecimal::from(0),
             corrected_amount: None,
             due_date: NaiveDate::from_ymd_opt(2023, 04, 16).unwrap(),
             payment_date: NaiveDate::from_ymd_opt(2023, 04, 20).unwrap(),
@@ -82,7 +83,7 @@ mod tests {
         let bill = Bill {
             id: Default::default(),
             description: "".to_string(),
-            original_amount: 0.0,
+            original_amount: BigDecimal::from(0),
             corrected_amount: None,
             due_date: NaiveDate::from_ymd_opt(2023, 04, 20).unwrap(),
             payment_date: NaiveDate::from_ymd_opt(2023, 04, 20).unwrap(),
