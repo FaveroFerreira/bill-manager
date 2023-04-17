@@ -1,6 +1,6 @@
 use tracing_appender::non_blocking::WorkerGuard;
 
-pub fn init() -> WorkerGuard {
+pub fn init_tracing() -> WorkerGuard {
     let (non_blocking_writer, guard) = tracing_appender::non_blocking(std::io::stdout());
 
     let subscriber = tracing_subscriber::FmtSubscriber::builder()

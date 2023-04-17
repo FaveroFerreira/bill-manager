@@ -1,5 +1,5 @@
 use async_trait::async_trait;
-use sqlx::{Error, PgPool};
+use sqlx::PgPool;
 use uuid::Uuid;
 
 use business::error::InterestError;
@@ -40,11 +40,11 @@ impl From<PersistenceInterestConfiguration> for InterestConfiguration {
 }
 
 pub struct InterestPostgresRepository {
-    pool: PgPool,
+    pub pool: PgPool,
 }
 
 impl InterestPostgresRepository {
-    pub async fn new(pool: PgPool) -> Self {
+    pub fn new(pool: PgPool) -> Self {
         Self { pool }
     }
 }

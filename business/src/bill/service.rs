@@ -7,10 +7,20 @@ use crate::interest::service::InterestService;
 
 pub struct BillService {
     pub bill_repository: Arc<dyn BillRepository + Send + Sync>,
-    pub interest_configuration: Arc<InterestService>,
+    pub interest_service: Arc<InterestService>,
 }
 
 impl BillService {
+    pub fn new(
+        bill_repository: Arc<dyn BillRepository + Send + Sync>,
+        interest_service: Arc<InterestService>,
+    ) -> BillService {
+        Self {
+            bill_repository,
+            interest_service,
+        }
+    }
+
     pub async fn list_bills(&self) -> Result<Vec<Bill>, BillError> {
         self.bill_repository.list_bills().await
     }
@@ -28,7 +38,7 @@ impl BillService {
         let delayed_days = bill.calculate_delayed_days();
 
         let interest_config = self
-            .interest_configuration
+            .interest_service
             .find_interest_configuration_range_by_delayed_days(delayed_days)
             .await?
             .ok_or(InterestError::NotFound(format!(

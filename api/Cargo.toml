@@ -10,3 +10,12 @@ infrastructure = { path = "../infrastructure" }
 business = { path = "../business" }
 persistence = { path = "../persistence" }
 tokio = { workspace = true }
+axum = { workspace = true }
+tower = { workspace = true }
+tower-http = { workspace = true }
+hyper = { workspace = true }
+chrono = { workspace = true }
+uuid = { workspace = true }
+axum-macros = { workspace = true }
+serde = { workspace = true }
+tracing = { workspace = true }
