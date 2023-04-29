@@ -1,8 +1,10 @@
 use axum::response::{IntoResponse, Response};
 use axum::Json;
-use business::error::{BillError, InterestError};
+use chrono::Utc;
 use hyper::StatusCode;
 use serde::Serialize;
+
+use business::error::{BillError, InterestError};
 
 #[derive(Debug)]
 pub enum ApiError {
@@ -33,18 +35,22 @@ impl From<InterestError> for ApiError {
 
 #[derive(Debug, Serialize)]
 pub struct ErrorResponse {
-    pub message: String,
+    pub msg: String,
+    pub timestamp: i64,
 }
 
 impl IntoResponse for ApiError {
     fn into_response(self) -> Response {
-        let (status, message) = match self {
-            ApiError::InternalServerError(message) => (StatusCode::INTERNAL_SERVER_ERROR, message),
-            ApiError::NotFound(message) => (StatusCode::NOT_FOUND, message),
-            ApiError::BadRequest(message) => (StatusCode::BAD_REQUEST, message),
+        let (status, msg) = match self {
+            ApiError::InternalServerError(msg) => (StatusCode::INTERNAL_SERVER_ERROR, msg),
+            ApiError::NotFound(msg) => (StatusCode::NOT_FOUND, msg),
+            ApiError::BadRequest(msg) => (StatusCode::BAD_REQUEST, msg),
         };
 
-        let body = ErrorResponse { message };
+        let body = ErrorResponse {
+            msg,
+            timestamp: Utc::now().timestamp(),
+        };
 
         (status, Json(body)).into_response()
     }

@@ -8,8 +8,8 @@ pub fn init_telemetry() -> WorkerGuard {
         .with_max_level(tracing::Level::INFO)
         .with_target(false)
         .with_span_list(false)
-        .with_file(true)
-        .with_line_number(true)
+        .with_file(false)
+        .with_line_number(false)
         .with_writer(non_blocking_writer)
         .finish();
 

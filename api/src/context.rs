@@ -7,12 +7,12 @@ use infrastructure::environment::Env;
 use persistence::bill::BillPostgresRepository;
 use persistence::interest::InterestPostgresRepository;
 
-pub struct ApplicationContext {
+pub struct ApiContext {
     pub bill_service: Arc<BillService>,
     pub interest_service: Arc<InterestService>,
 }
 
-impl ApplicationContext {
+impl ApiContext {
     pub async fn autowire(env: &Env) -> Self {
         let db_pool = init_db(env).await;
 

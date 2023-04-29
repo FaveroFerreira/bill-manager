@@ -1,24 +1,22 @@
-use axum::{
-    response::{IntoResponse, Response},
-    Json,
-};
+use axum::response::{IntoResponse, Response};
+use axum::Json;
 use hyper::StatusCode;
 use serde::Serialize;
 
-pub struct ApiResponse<Body: Serialize> {
+pub struct ApiResponse<B: Serialize> {
     status: StatusCode,
-    body: Body,
+    body: B,
 }
 
-impl<Body: Serialize> ApiResponse<Body> {
-    pub fn ok(body: Body) -> Self {
+impl<B: Serialize> ApiResponse<B> {
+    pub fn ok(body: B) -> Self {
         ApiResponse {
             status: StatusCode::OK,
             body,
         }
     }
 
-    pub fn created(body: Body) -> Self {
+    pub fn created(body: B) -> Self {
         ApiResponse {
             status: StatusCode::CREATED,
             body,
@@ -26,7 +24,7 @@ impl<Body: Serialize> ApiResponse<Body> {
     }
 }
 
-impl<Body: Serialize> IntoResponse for ApiResponse<Body> {
+impl<B: Serialize> IntoResponse for ApiResponse<B> {
     fn into_response(self) -> Response {
         (self.status, Json(self.body)).into_response()
     }
