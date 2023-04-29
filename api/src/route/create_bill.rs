@@ -10,6 +10,8 @@ use uuid::Uuid;
 use business::bill::model::Bill;
 
 use crate::context::ApplicationContext;
+use crate::error::ApiError;
+use crate::response::ApiResponse;
 
 #[derive(Debug, Deserialize)]
 pub struct CreateBillDTO {
@@ -23,7 +25,7 @@ pub struct CreateBillDTO {
 pub async fn handler(
     State(application_context): State<Arc<ApplicationContext>>,
     Json(create_bill_dto): Json<CreateBillDTO>,
-) {
+) -> Result<ApiResponse<Bill>, ApiError> {
     let bill = Bill {
         id: Uuid::new_v4(),
         description: create_bill_dto.description,
@@ -33,9 +35,7 @@ pub async fn handler(
         payment_date: create_bill_dto.payment_date,
     };
 
-    application_context
-        .bill_service
-        .create_bill(bill)
-        .await
-        .unwrap();
+    let created_bill = application_context.bill_service.create_bill(bill).await?;
+
+    Ok(ApiResponse::created(created_bill))
 }

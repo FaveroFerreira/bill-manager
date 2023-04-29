@@ -5,16 +5,18 @@ use axum::routing::{get, post};
 use axum::Router;
 
 use infrastructure::environment::load_env;
-use infrastructure::observability::init_tracing;
+use infrastructure::telemetry::init_telemetry;
 
 use crate::context::ApplicationContext;
 
 mod context;
+mod error;
 mod route;
+mod response;
 
 #[tokio::main]
 async fn main() {
-    let _guard = init_tracing();
+    let _guard = init_telemetry();
 
     let env = load_env();
 

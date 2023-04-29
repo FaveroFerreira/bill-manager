@@ -11,6 +11,7 @@ business = { path = "../business" }
 persistence = { path = "../persistence" }
 tokio = { workspace = true }
 axum = { workspace = true }
+thiserror = { workspace = true }
 tower = { workspace = true }
 tower-http = { workspace = true }
 hyper = { workspace = true }

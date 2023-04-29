@@ -35,6 +35,7 @@ dependencies = [
  "infrastructure",
  "persistence",
  "serde",
+ "thiserror",
  "tokio",
  "tower",
  "tower-http",
@@ -182,6 +183,7 @@ dependencies = [
  "async-trait",
  "bigdecimal",
  "chrono",
+ "serde",
  "thiserror",
  "uuid",
 ]

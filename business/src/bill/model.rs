@@ -1,8 +1,9 @@
 use bigdecimal::BigDecimal;
 use chrono::NaiveDate;
+use serde::Serialize;
 use uuid::Uuid;
 
-#[derive(Debug)]
+#[derive(Debug, Serialize)]
 pub struct Bill {
     pub id: Uuid,
     pub description: String,
